@@ -7,11 +7,13 @@ namespace GaltonBoard
 {
     class Program
     {
+        const int Amount = 100_000_000;
+
         static void Main(string[] args)
         {
             Random random = new Random();
             int[] arr = new int[32];
-            for (int i = 0; i < 10_000_000; i++)
+            for (int i = 0; i < Amount; i++)
             {
                 int n = random.Next(int.MaxValue);
                 int bitCount = NumberOfSetBits(n);
@@ -48,10 +50,13 @@ namespace GaltonBoard
         {
             int max = arr.Max();
             const int MaxColumns = 100;
+
             foreach (int i in arr)
             {
-                int columns = i * MaxColumns / max;
-                Console.WriteLine(new string('#', columns));
+                double columns = (double)i * MaxColumns / max;
+                double percent = (double)i / Amount * 100;
+                string chartLine = new string('#', (int)Math.Round(columns));
+                Console.WriteLine($"{percent:00.00}% {chartLine}");
             }
         }
     }
